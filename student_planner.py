@@ -18,7 +18,7 @@ def display_menu():
   print("-" * 40)
   
   def add_task(tasks,next_task_id):
-  task={"id":next_task_id,
+        task={"id":next_task_id,
         "title":input("task title:"),
         "course":input("Course name:"),
         "due_date":input("Due date:"),
@@ -286,9 +286,6 @@ def main():
 
             case 10:
                 print("Goodbye!")
-
-            case 11:
-                search_tasks_by_title(tasks)
 
             case _:
                 print("Invalid menu choice.")
