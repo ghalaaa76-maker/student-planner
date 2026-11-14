@@ -70,7 +70,7 @@ def display_task(task):
   print("Due date:",task["due_date"])
   print("Priority:",task["priority"])
   print("Status:",task["status"])
-  print("-" * 40)
+  
 
 
 
