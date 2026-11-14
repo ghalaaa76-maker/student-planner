@@ -223,37 +223,6 @@ def show_summary(tasks):
 
 
 
-
-# Find tasks using title keywords
-def search_tasks_by_title(tasks):
-    text = input("Enter title keywords separated by spaces: ").strip()
-
-    while text == "":
-        print("This field cannot be empty.")
-        text = input("Enter title keywords separated by spaces: ").strip()
-        
-    keywords = text.lower().split()
-    available = False
-
-    for task in tasks:
-        title = task["title"].lower()
-        same_title = True
-
-        for word in keywords:
-            if word in title:
-                continue
-            else:
-                same_title = False
-                break
-
-        if same_title == True:
-            display_task(task)
-            available = True
-
-    if available == False:
-        print("No tasks available with these title keywords.")
-
-
 # Display the menu and process user choices
 def main():
     tasks = []
