@@ -92,7 +92,7 @@ def edit_task(tasks):
         return
 
     if task["status"] == "Completed":
-        print("This task is completed, so you can't edit.")
+        print("This task is completed you can't edit")
         return
 
     print("1. Title")
@@ -105,7 +105,7 @@ def edit_task(tasks):
     if user_choice == "1":
         title = input("Enter new task title: ").strip()
         while len(title) == 0:
-            print("This field cannot be empty.")
+            print("This can not be empty")
             title = input("Enter new task title: ").strip()
         task["title"] = title
 
@@ -175,11 +175,11 @@ def list_all_tasks(tasks):
 
 # Show tasks by course
 def list_tasks_by_course(tasks):
-    course = input("Enter course code or name: ").strip()
+    course = input("Enter course code : ").strip()
 
     while course == "":
         print("This field cannot be empty.")
-        course = input("Enter course code or name: ").strip()
+        course = input("Enter course code : ").strip()
 
     exists= False
 
@@ -217,7 +217,7 @@ def list_tasks_by_priority(tasks):
             available = True
 
     if available== False:
-        print("No tasks found with this priority.")
+        print("No available task with this priority.")
     
 
     
