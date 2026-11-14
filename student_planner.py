@@ -1,6 +1,6 @@
 #Names: [Ghala Aloraydi] [Leena alaqil]
 #IDs:[447202149] [447202541]
-Section:[65084]
+#Section:[65084]
 def display_menu():
   print()
   print("STUDENT PLANNER")
@@ -16,17 +16,43 @@ def display_menu():
   print("9. View tasks summary")
   print("10. Exit")
   print("-" * 40)
-  
-  def add_task(tasks,next_task_id):
-        task={"id":next_task_id,
-        "title":input("task title:"),
-        "course":input("Course name:"),
-        "due_date":input("Due date:"),
-        "priority":input("Priority:"),
-        "status":"Pending"}
+def add_task(tasks,next_task_id):
+  title = input("Task title: ").strip()
+  while title =="":
+    print("This field cannot be empty")
+    title =input("Task title: ").strip()
+  course = input("Course name: ").strip()
+  while course =="":
+    print("This field cannot be empty.")
+    course =input("Course name: ").strip()
+  while True:
+    due_date =input("Due date (DD/MM/YYYY): ").strip()
+    if (len(due_date) ==10
+           and due_date[2] =="/"
+           and due_date[5] =="/"
+           and due_date[0:2].isdigit()
+           and due_date[3:5].isdigit()
+           and due_date[6:10].isdigit()):
+        break
+    print("Invalid date format. Use DD/MM/YYYY")
+  priority_level ={"1": "High", "2" : "Medium", "3" : "Low"}
+  choice = input("Priority (1=High, 2=Medium, 3=Low): ").strip()
+  while choice not in priority_level:
+    print("Invalid priority. Enter 1,2 or 3.")
+    choice = input("Priority (1=High, 2=Medium, 3=Low): ").strip()
+  task = {
+      "id": next_task_id,
+      "title": title,
+      "course":course,
+      "due_date":due_date,
+      "priority":priority_level[choice],
+      "status": "Pending"
+      
+  }
   tasks.append(task)
-  print("Task added successfully!")  
-  return next_task_id + 1
+  print("Task added successfully. Task ID:", next_task_id)
+  return next_task_id +1
+           
 def find_task_by_id(tasks,task_id):
   for i in tasks:
     if i["id"]==task_id:
@@ -34,14 +60,17 @@ def find_task_by_id(tasks,task_id):
   return None
 
 
+
+
   
 def display_task(task):
-  print("Task ID:",task["id"])
-  print("Task title:",task["title"])
-  print("Task coures:",task["course"])
-  print("Task Due date:",task["due_date"])
-  print("Task priority:",task["priority"])
-  print("Task status:",task["status"])
+  print("ID:",task["id"])
+  print("Title:",task["title"])
+  print("Course:",task["course"])
+  print("Due date:",task["due_date"])
+  print("Priority:",task["priority"])
+  print("Status:",task["status"])
+  print("-" * 40)
 
 
 
@@ -123,13 +152,17 @@ def edit_task(tasks):
 
 
 def delete_task(tasks):
-  task_id=int(input("Enter task id to delete'))
-  task_to_delete=find_task_by_id(tasks,task_id)
+  task_id=input("Enter task ID: ").strip()
+  if not task_id.isdigit() or int(task_id) <=0:
+    print("Invalid ID. Enter digits 0-9 with a value greater than zero.")
+    return
+  task_id=int(task_id)
+  task_to_delete =find_task_by_id(tasks, task_id)
   if task_to_delete is None:
      print("Task not found")
   else:
     tasks.remove(task_to_delete)
-    print("Task deleted")
+    print("Task deleted successfully")
 
 # Show all tasks
 def list_all_tasks(tasks):
@@ -188,16 +221,19 @@ def list_tasks_by_priority(tasks):
 
     
 def mark_task_completed(tasks):
-    task_id=int(input("Enter task id to mark completed")
-    task_to_complete=find_task_by_id(tasks,task_id)
-    if task_to_complet is None:
-       print("task not found")
+    task_id=input("Enter task ID: ").strip()
+    if not task_id.isdigit() or int(task_id) <= 0:
+        print("Invalid ID. Enter digits 0-9 with a value greater than zero.")
+        return
+    task_id =int(task_id)
+    task = find_task_by_id(tasks, task_id)
+    if task is None:
+        print("Task not found")
+    elif task["status"] =="Completed":
+        print("Task is already completed")
     else:
-       if task_to_complete["status"]=="Completed":
-         print("arleady completed")
-       else:
-         task_to_complete["status"]="completed"
-
+        task["status"] = "Completed"
+        print("Task",task_id,"marked as completed.")
 
 def show_summary(tasks):
     total = len(tasks)
