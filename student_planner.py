@@ -208,6 +208,7 @@ def list_tasks_by_priority(tasks):
             break
         else:
             print("Invalid priority. Enter 1, 2, or 3.")
+        display_task(task)
 
     available = False
     for task in tasks:
